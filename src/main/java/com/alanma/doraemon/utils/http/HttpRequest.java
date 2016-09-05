@@ -97,8 +97,8 @@ public class HttpRequest {
 			URLConnection conn = realUrl.openConnection();
 			// 设置通用的请求属性
 			conn.setRequestProperty("accept", "*/*");
-			conn.setRequestProperty("connection", "Keep-Alive");
-			conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+			conn.setRequestProperty("connection", "keep-alive");
+			conn.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.63 Safari/537.36");
 			// 发送POST请求必须设置如下两行
 			conn.setDoOutput(true);
 			conn.setDoInput(true);
@@ -175,10 +175,14 @@ public class HttpRequest {
 	}
 
 	public static void main(String[] args) {
-		String url = "http://localhost:8887/account/rechargeResult.html";
-		String param = ReadFile.getInputParams(PARAMS_URI);
-		System.out.println(param);
-		// sendPost(url, param);
-		postStrut2(url);
+		// String url = "http://localhost:8887/account/rechargeResult.html";
+		// String param = ReadFile.getInputParams(PARAMS_URI);
+		// System.out.println(param);
+		// // sendPost(url, param);
+		// postStrut2(url);
+
+		String result = sendPost("http://192.168.101.134/message/sms.http.php",
+				"Name=hujin&Passwd=hujin&Phone=18210219964&Content=%E6%B5%8B%E8%AF%95%E4%BA%92%E9%87%91001");
+		System.out.println(result);
 	}
 }
