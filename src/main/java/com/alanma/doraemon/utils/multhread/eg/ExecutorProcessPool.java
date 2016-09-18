@@ -3,6 +3,8 @@ package com.alanma.doraemon.utils.multhread.eg;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 线程处理类
@@ -114,6 +116,10 @@ public class ExecutorProcessPool {
 	 */
 	public Future<?> submit(Runnable task) {
 		return executor.submit(task);
+	}
+
+	public void scheduleAtFixedRate(Runnable task, long initialDelay, long period) {
+		((ScheduledExecutorService) executor).scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
 	}
 
 	/**
