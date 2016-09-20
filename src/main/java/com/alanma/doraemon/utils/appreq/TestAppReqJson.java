@@ -22,7 +22,7 @@ import com.alanma.doraemon.utils.rsa.zl.RSAUtilsZL;
 import com.alanma.doraemon.utils.time.DateStyle;
 import com.alanma.doraemon.utils.time.DateUtil;
 
-public class TestAppReq {
+public class TestAppReqJson {
 
 	/**
 	 * 对称秘钥

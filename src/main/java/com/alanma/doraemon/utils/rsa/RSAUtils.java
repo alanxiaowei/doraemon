@@ -240,6 +240,8 @@ public class RSAUtils {
 		// 使用模和指数生成公钥和私钥
 		RSAPublicKey pubKey = RSAUtils.getPublicKey(modulus, public_exponent);
 		RSAPrivateKey priKey = RSAUtils.getPrivateKey(modulus, private_exponent);
+		System.out.println("公钥Str："+RSAHelper.getKeyString(pubKey));
+		System.out.println("私钥Str："+RSAHelper.getKeyString(priKey));
 		// 加密后的密文
 		String mi = RSAUtils.encryptByPublicKey(ming, pubKey);
 		System.err.println("密文：" + mi);

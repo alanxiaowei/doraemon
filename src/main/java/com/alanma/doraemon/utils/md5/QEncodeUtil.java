@@ -8,6 +8,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.alanma.doraemon.utils.rsa.zl.Base64Utils;
 import com.alanma.doraemon.utils.string.StringUtil;
 
 import sun.misc.BASE64Decoder;
@@ -69,7 +70,7 @@ public class QEncodeUtil {
 	 * @throws Exception
 	 */
 	public static byte[] base64Decode(String base64Code) throws Exception {
-		return StringUtil.isEmpty(base64Code) ? null : new BASE64Decoder().decodeBuffer(base64Code);
+		return StringUtil.isEmpty(base64Code) ? null : Base64Utils.decode(base64Code);
 	}
 
 	/**

@@ -63,22 +63,20 @@ public class ReadPFX {
 			if (enumas.hasMoreElements())// we are readin just one certificate.
 			{
 				keyAlias = (String) enumas.nextElement();
-				// System.out.println("alias=[" + keyAlias + "]");
+//				System.out.println("alias=[" + keyAlias + "]");
 			}
 			// Now once we know the alias, we could get the keys.
-			// System.out.println("is key entry=" + ks.isKeyEntry(keyAlias));
+//			System.out.println("is key entry=" + ks.isKeyEntry(keyAlias));
 			RSAPrivateKey prikey = (RSAPrivateKey) ks.getKey(keyAlias, nPassword);
 			Certificate cert = ks.getCertificate(keyAlias);
 			PublicKey pubkey = cert.getPublicKey();
 
-			// System.out.println("cert class = " + cert.getClass().getName());
-			// System.out.println("cert = " + cert);
-			// System.out.println("public key = " + pubkey);
-			// System.out.println("private key = " + prikey);
-			// System.out.println("public key base64 Str= " +
-			// Base64.encode(pubkey.getEncoded()));
-			// System.out.println("private key base64 Str= " +
-			// Base64.encode(prikey.getEncoded()));
+//			System.out.println("cert class = " + cert.getClass().getName());
+//			System.out.println("cert = " + cert);
+//			System.out.println("public key = " + pubkey);
+//			System.out.println("private key = " + prikey);
+//			System.out.println("public key base64 Str= " + Base64.encode(pubkey.getEncoded()));
+//			System.out.println("private key base64 Str= " + Base64.encode(prikey.getEncoded()));
 			return prikey;
 		} catch (Exception e) {
 			e.printStackTrace();
