@@ -5,22 +5,16 @@ import java.net.URLEncoder;
 import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
-import com.alanma.doraemon.utils.md5.QEncodeUtil;
 import com.alanma.doraemon.utils.md5.TestMD5;
-import com.alanma.doraemon.utils.rsa.Base64;
 import com.alanma.doraemon.utils.rsa.RSAEncrypt;
-import com.alanma.doraemon.utils.rsa.RSAUtils;
 import com.alanma.doraemon.utils.rsa.zl.AES;
 import com.alanma.doraemon.utils.rsa.zl.Base64Utils;
 import com.alanma.doraemon.utils.rsa.zl.RSAUtilsZL;
-import com.alanma.doraemon.utils.time.DateStyle;
-import com.alanma.doraemon.utils.time.DateUtil;
+import com.alibaba.fastjson.JSONObject;
 
 public class TestAppReqJson {
 
@@ -37,6 +31,9 @@ public class TestAppReqJson {
 	 */
 	private static String url = "http://192.168.101.247" + "/restful/idencode/sendMsgCode";
 
+	private static String inputStrReqHead = "{\"random\":\"168456\",\"timestamp\":\"20160606:12:00:00\",\"os\":\"v1.0.6\",\"deviceID\":\"DID123987654\",\"phoneNo\":\"13999999999\",\"phoneIMEI\":\"IMEI4989163\"}";
+	private static String inputStrData = "{\"phoneNum\":\"13999999999\",\"certBusCase\":\"01\"}";
+
 	public static void main(String[] args) {
 		String signature = null;
 		String signMethod = "02";
@@ -48,6 +45,7 @@ public class TestAppReqJson {
 		String encyDataUrl = null;
 		String encyHeadUrl = null;
 		String signUrl = null;
+		String signMethodUrl = null;
 		String encryKeyUrl = null;
 
 		// encry对称秘钥-encryKey
@@ -63,14 +61,7 @@ public class TestAppReqJson {
 		System.out.println("pubKey 明文：" + sesSK);
 		System.out.println("pubKey 密文：" + encryKey);
 		// reqHead AES对称加密后Base64转码
-		Map<String, String> headMap = new HashMap<String, String>();
-		headMap.put("random", "168456");
-		headMap.put("timestamp", DateUtil.DateToString(new Date(), DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
-		headMap.put("os", "v1.0.6");
-		headMap.put("deviceID", "DID123987654");
-		headMap.put("phoneNo", "13999999999");
-		headMap.put("phoneIMEI", "IMEI4989163");
-		origHead = getDataInMsg(headMap);
+		origHead = getDataInMsg(inputStrReqHead);
 		System.out.println("orig head is:" + origHead);
 		try {
 			// encyHead = QEncodeUtil.aesEncrypt(origHead, sesSK);
@@ -81,10 +72,7 @@ public class TestAppReqJson {
 		System.out.println("encypt head is:" + encyHead);
 
 		// data AES对称加密后Base64转码
-		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap.put("phoneNum", "13999999999");
-		dataMap.put("certBusCase", "01");
-		origData = getDataInMsg(dataMap);
+		origData = getDataInMsg(inputStrData);
 		System.out.println("orig data is:" + origData);
 		try {
 			// encyData = QEncodeUtil.aesEncrypt(origData, sesSK);
@@ -97,42 +85,78 @@ public class TestAppReqJson {
 		signature = TestMD5.getMessageDigest(origHead + "&" + origData + "&" + sesSK);
 
 		// 组装请求地址
-		// http//xxxxxx?data=URL编码&reqHead=URL编码&sign=URL编码&encry=URL编码
+		// {"data":"LNk5LrUk8cjdUGAevc0rt8djL%2FEt44gOTec7wdCUnqiSS60B6F6YVQ5jAHPk0fvzuk6kyHFYCafQymTq%2Byr9nbazF2BQgJwua0hRQ9Xx6TU%3D","sign":{"signature":"e7264157d9e25175620da3f7fda4d2a8","signMethod":"02"},"encry":"VfHQB4bN6jLp9LUaDIj2QbKZCyckayFGfHrdr1gYu9IOex+zLTNM5HWnO7ouC5JzEv6r94dPiHw\/XAZo+vx+Iddoqe56kyOUcDheORxnw9wIGXuATcZXofac50rgGYbVy4YVSFJzwRWROTl6W5MWFmxP0qBkyi3OOttIzW8DdZ4=","reqHead":"60tBm7hEnTlu2TkbtB75yzOiigijEf8r1n%2FUIhuvgE0gUsjwPh82ViYZSUM4x4b7ZAPv84ksX6pbPgK0xEJJcCMbAe714D89PJovCqDCwysFNtk%2BcJLIsb%2F%2FKjlxDMKx80Z2qEkFwVShln6W4CUJa%2BP6WQWLN1icLsfN9SZp8T9RM72In4CACjcSW%2BXYAi%2B9e6isu78PuCQ0guMU9BgRww%3D%3D"}
 		try {
 			encyDataUrl = URLEncoder.encode(encyData, "UTF-8");
 			encyHeadUrl = URLEncoder.encode(encyHead, "UTF-8");
-			signUrl = URLEncoder.encode(signature + signMethod, "UTF-8");
+			signUrl = URLEncoder.encode(signature, "UTF-8");
+			signMethodUrl = URLEncoder.encode(signMethod, "UTF-8");
 			encryKeyUrl = URLEncoder.encode(encryKey, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		Sign sign = new Sign(signUrl, signMethodUrl);
+		MsgInfo msfInfo = new MsgInfo(sign, encryKeyUrl, encyHeadUrl, encyDataUrl);
+		System.out.println("\n" + JSONObject.toJSONString(msfInfo));
 
-		String reqStr = url + "?" + "data=" + encyDataUrl + "&reqHead=" + encyHeadUrl + "&sign=" + signUrl + "&encry="
-				+ encryKeyUrl;
-
-		System.out.println("\n" + reqStr);
 	}
 
-	private static String getDataInMsg(Map<String, String> dataMap) {
+	private static String getDataInMsg(String inputStr) {
 
 		List<String> dataKeys = new ArrayList<String>();
-		for (Entry<String, String> entry : dataMap.entrySet()) {
+		JSONObject jsonObj = (JSONObject) JSONObject.parse(inputStr);
+		Set<Entry<String, Object>> set = jsonObj.entrySet();
+		for (Entry<String, Object> entry : set) {
 			dataKeys.add(entry.getKey());
 		}
 		Collections.sort(dataKeys);
 
-		return spliceElements(dataKeys, dataMap);
+		return spliceElements(dataKeys, jsonObj);
 	}
 
-	private static String spliceElements(List<String> keys, Map<String, String> dataMap) {
+	private static String spliceElements(List<String> keys, JSONObject jsonObj) {
 		StringBuffer sb = new StringBuffer();
+		sb.append("{");
 		for (int i = 0; i < keys.size(); i++) {
+			sb.append("\"");
 			sb.append(keys.get(i));
-			sb.append("=");
-			sb.append(dataMap.get(keys.get(i)));
-			sb.append("&");
+			sb.append("\"");
+			sb.append(":");
+			if (jsonObj.get(keys.get(i)) instanceof String) {
+				sb.append("\"");
+			}
+			sb.append(jsonObj.get(keys.get(i)));
+			if (jsonObj.get(keys.get(i)) instanceof String) {
+				sb.append("\"");
+			}
+			if (i == keys.size() - 1) {
+				sb.append("}");
+			} else {
+				sb.append(",");
+			}
 		}
 		return sb.toString();
 	}
+
+	// public static void main(String[] args) {
+	// Map<String, String> headMap = new HashMap<String, String>();
+	// headMap.put("random", "168456");
+	// headMap.put("timestamp", DateUtil.DateToString(new Date(),
+	// DateStyle.YYYY_MM_DD_HH_MM_SS.getValue()));
+	// headMap.put("os", "v1.0.6");
+	// headMap.put("deviceID", "DID123987654");
+	// headMap.put("phoneNo", "13999999999");
+	// headMap.put("phoneIMEI", "IMEI4989163");
+	//
+	// String inputStr =
+	// "{\"random\":\"168456\",\"timestamp\":\"20160606:12:00:00\",\"os\":\"v1.0.6\",\"deviceID\":\"DID123987654\",\"phoneNo\":\"13999999999\",\"phoneIMEI\":\"IMEI4989163\"}";
+	// System.out.println(inputStr);
+	// JSONObject jsonObj = (JSONObject) JSONObject.parse(inputStr);
+	// Set<Entry<String, Object>> set = jsonObj.entrySet();
+	// for (Entry<String, Object> entry : set) {
+	// System.out.println(entry.getKey() + "=" + entry.getValue());
+	// }
+	// System.out.println(jsonObj.toJSONString());
+	// }
 
 }
