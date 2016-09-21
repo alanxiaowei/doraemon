@@ -1,4 +1,4 @@
-package com.alanma.doraemon.utils.rsa;
+package com.alanma.doraemon.utils.secret;
 
 import java.math.BigInteger;
 import java.security.KeyFactory;

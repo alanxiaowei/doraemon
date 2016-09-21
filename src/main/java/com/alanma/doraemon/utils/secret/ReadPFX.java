@@ -1,12 +1,13 @@
-package com.alanma.doraemon.utils.rsa;
+package com.alanma.doraemon.utils.secret;
 
 import java.io.FileInputStream;
 import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 public class ReadPFX {
 	public ReadPFX() {
@@ -38,7 +39,7 @@ public class ReadPFX {
 		return b;
 	}
 
-	public static RSAPrivateKey getPvkformPfx(String strPfx, String strPassword) {
+	public static List getPvkformPfx(String strPfx, String strPassword) {
 		try {
 			KeyStore ks = KeyStore.getInstance("PKCS12");
 			FileInputStream fis = new FileInputStream(strPfx);
@@ -63,21 +64,27 @@ public class ReadPFX {
 			if (enumas.hasMoreElements())// we are readin just one certificate.
 			{
 				keyAlias = (String) enumas.nextElement();
-//				System.out.println("alias=[" + keyAlias + "]");
+				// System.out.println("alias=[" + keyAlias + "]");
 			}
 			// Now once we know the alias, we could get the keys.
-//			System.out.println("is key entry=" + ks.isKeyEntry(keyAlias));
+			// System.out.println("is key entry=" + ks.isKeyEntry(keyAlias));
 			RSAPrivateKey prikey = (RSAPrivateKey) ks.getKey(keyAlias, nPassword);
 			Certificate cert = ks.getCertificate(keyAlias);
-			PublicKey pubkey = cert.getPublicKey();
+			RSAPublicKey pubkey = (RSAPublicKey) cert.getPublicKey();
 
-//			System.out.println("cert class = " + cert.getClass().getName());
-//			System.out.println("cert = " + cert);
-//			System.out.println("public key = " + pubkey);
-//			System.out.println("private key = " + prikey);
-//			System.out.println("public key base64 Str= " + Base64.encode(pubkey.getEncoded()));
-//			System.out.println("private key base64 Str= " + Base64.encode(prikey.getEncoded()));
-			return prikey;
+			// System.out.println("cert class = " + cert.getClass().getName());
+			// System.out.println("cert = " + cert);
+			// System.out.println("public key = " + pubkey);
+			// System.out.println("private key = " + prikey);
+			// System.out.println("public key base64 Str= " +
+			// Base64.encode(pubkey.getEncoded()));
+			// System.out.println("private key base64 Str= " +
+			// Base64.encode(prikey.getEncoded()));
+
+			List pk = new ArrayList();
+			pk.add(pubkey);
+			pk.add(prikey);
+			return pk;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,6 +92,13 @@ public class ReadPFX {
 	}
 
 	public static void main(String[] args) {
-		getPvkformPfx("C:\\Users\\AlanMa\\Desktop\\hj.pfx", "hj2016");
+		List pks = getPvkformPfx("C:\\Users\\AlanMa\\Desktop\\hj.pfx", "hj2016");
+		try {
+			System.out.println("公钥：" + RSAHelper.getKeyString((RSAPublicKey) pks.get(0)));
+			System.out.println("私钥：" + RSAHelper.getKeyString((RSAPrivateKey) pks.get(1)));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

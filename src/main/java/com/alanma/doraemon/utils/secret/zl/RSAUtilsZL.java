@@ -1,4 +1,4 @@
-package com.alanma.doraemon.utils.rsa.zl;
+package com.alanma.doraemon.utils.secret.zl;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

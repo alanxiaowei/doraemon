@@ -10,10 +10,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.alanma.doraemon.utils.md5.TestMD5;
-import com.alanma.doraemon.utils.rsa.RSAEncrypt;
-import com.alanma.doraemon.utils.rsa.zl.AES;
-import com.alanma.doraemon.utils.rsa.zl.Base64Utils;
-import com.alanma.doraemon.utils.rsa.zl.RSAUtilsZL;
+import com.alanma.doraemon.utils.secret.RSAEncrypt;
+import com.alanma.doraemon.utils.secret.zl.AES;
+import com.alanma.doraemon.utils.secret.zl.Base64Utils;
+import com.alanma.doraemon.utils.secret.zl.RSAUtilsZL;
 import com.alibaba.fastjson.JSONObject;
 
 public class TestAppReqJson {
@@ -25,7 +25,7 @@ public class TestAppReqJson {
 	/**
 	 * 后台公钥
 	 */
-	private static String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJrEM2dOpaKTF7qLloxfk9Nzn61fEN8iTqL3dkxUv08k/F7l38+MrKzKcu8cC0xew1rQHWDHRofGbxbr5kLuZlEf51/j0gEm5qmUQN3iVjlaE10nOR6JQtTmxAxnZfXHtaXZtjY4muzplWimYL+Zr6K+zDXAlVbUEItVfltcaQGQIDAQAB";
+	private static String pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC0V5iLt0eKYPVQpvDvOX1j07jj8GSsxl9eIEzFv3xOZrxIXYCwxrmtpvjlsvt5c8gx2o8kvZxdBdoG5sVSbEawz3A6XfRSEPj6do/ucJkNZcBQJ+DfruHOpE1EVidco6g5t1Wy09muMHAIs6jibJGvQI4hW2QgfG7827JRYwj+rQIDAQAB";
 	/**
 	 * URL
 	 */
@@ -35,6 +35,48 @@ public class TestAppReqJson {
 	private static String inputStrData = "{\"phoneNum\":\"13999999999\",\"certBusCase\":\"01\"}";
 
 	public static void main(String[] args) {
+		getAppResMsg();
+		
+	}
+
+	private static String getDataInMsg(String inputStr) {
+
+		List<String> dataKeys = new ArrayList<String>();
+		JSONObject jsonObj = (JSONObject) JSONObject.parse(inputStr);
+		Set<Entry<String, Object>> set = jsonObj.entrySet();
+		for (Entry<String, Object> entry : set) {
+			dataKeys.add(entry.getKey());
+		}
+		Collections.sort(dataKeys);
+
+		return spliceElements(dataKeys, jsonObj);
+	}
+
+	private static String spliceElements(List<String> keys, JSONObject jsonObj) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		for (int i = 0; i < keys.size(); i++) {
+			sb.append("\"");
+			sb.append(keys.get(i));
+			sb.append("\"");
+			sb.append(":");
+			if (jsonObj.get(keys.get(i)) instanceof String) {
+				sb.append("\"");
+			}
+			sb.append(jsonObj.get(keys.get(i)));
+			if (jsonObj.get(keys.get(i)) instanceof String) {
+				sb.append("\"");
+			}
+			if (i == keys.size() - 1) {
+				sb.append("}");
+			} else {
+				sb.append(",");
+			}
+		}
+		return sb.toString();
+	}
+
+	private static String getAppResMsg() {
 		String signature = null;
 		String signMethod = "02";
 		String encryKey = null;
@@ -96,46 +138,10 @@ public class TestAppReqJson {
 			e.printStackTrace();
 		}
 		Sign sign = new Sign(signUrl, signMethodUrl);
-		MsgInfo msfInfo = new MsgInfo(sign, encryKeyUrl, encyHeadUrl, encyDataUrl);
-		System.out.println("\n" + JSONObject.toJSONString(msfInfo));
-
-	}
-
-	private static String getDataInMsg(String inputStr) {
-
-		List<String> dataKeys = new ArrayList<String>();
-		JSONObject jsonObj = (JSONObject) JSONObject.parse(inputStr);
-		Set<Entry<String, Object>> set = jsonObj.entrySet();
-		for (Entry<String, Object> entry : set) {
-			dataKeys.add(entry.getKey());
-		}
-		Collections.sort(dataKeys);
-
-		return spliceElements(dataKeys, jsonObj);
-	}
-
-	private static String spliceElements(List<String> keys, JSONObject jsonObj) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("{");
-		for (int i = 0; i < keys.size(); i++) {
-			sb.append("\"");
-			sb.append(keys.get(i));
-			sb.append("\"");
-			sb.append(":");
-			if (jsonObj.get(keys.get(i)) instanceof String) {
-				sb.append("\"");
-			}
-			sb.append(jsonObj.get(keys.get(i)));
-			if (jsonObj.get(keys.get(i)) instanceof String) {
-				sb.append("\"");
-			}
-			if (i == keys.size() - 1) {
-				sb.append("}");
-			} else {
-				sb.append(",");
-			}
-		}
-		return sb.toString();
+		AppReqMsg msfInfo = new AppReqMsg(sign, encryKeyUrl, encyHeadUrl, encyDataUrl);
+		String resp = JSONObject.toJSONString(msfInfo);
+		System.out.println("\n" + resp);
+		return resp;
 	}
 
 	// public static void main(String[] args) {

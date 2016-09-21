@@ -1,7 +1,7 @@
 package com.alanma.doraemon.utils.appreq;
 
-import com.alanma.doraemon.utils.rsa.zl.Base64Utils;
-import com.alanma.doraemon.utils.rsa.zl.RSAUtilsZL;
+import com.alanma.doraemon.utils.secret.zl.Base64Utils;
+import com.alanma.doraemon.utils.secret.zl.RSAUtilsZL;
 
 public class TestRSA2 {
 	private static String priKey = "MIIBNgIBADANBgkqhkiG9w0BAQEFAASCASAwggEcAgEAAoGBAImsQzZ06lopMXuouWjF+T03OfrV8Q3yJOovd2TFS/TyT8XuXfz4ysrMpy7xwLTF7DWtAdYMdGh8ZvFuvmQu5mUR/nX+PSASbmqZRA3eJWOVoTXSc5HolC1ObEDGdl9ce1pdm2Njia7OmVaKZgv5mvor7MNcCVVtQQi1V+W1xpAZAgEAAoGAb9hMul79TMYOd0G5bw72zu6g4dERBp1jtAVf37QRYyu/9zMRlESiq2Lbp12rirEIlwq4ZSa1I3V9REMN1eHsNZnBTBXmWgRqQ1ShS5g6dGQoDBNJBb5Tt4phfCoaSMFcI4sdr6TCOeP3C1CMx+9Gxatk+HB8XFFkp1lgGwWWN6ECAQACAQACAQACAQACAQA=";
