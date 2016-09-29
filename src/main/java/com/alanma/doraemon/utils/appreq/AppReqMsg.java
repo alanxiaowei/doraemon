@@ -1,7 +1,7 @@
 package com.alanma.doraemon.utils.appreq;
 
 public class AppReqMsg {
-	private Sign sign;
+	private String sign;
 	private String encry;
 	private String reqHead;
 	private String data;
@@ -11,7 +11,7 @@ public class AppReqMsg {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AppReqMsg(Sign sign, String encry, String reqHead, String data) {
+	public AppReqMsg(String sign, String encry, String reqHead, String data) {
 		super();
 		this.sign = sign;
 		this.encry = encry;
@@ -19,11 +19,11 @@ public class AppReqMsg {
 		this.data = data;
 	}
 
-	public Sign getSign() {
+	public String getSign() {
 		return sign;
 	}
 
-	public void setSign(Sign sign) {
+	public void setSign(String sign) {
 		this.sign = sign;
 	}
 
@@ -50,8 +50,6 @@ public class AppReqMsg {
 	public void setData(String data) {
 		this.data = data;
 	}
-
-	
 
 	@Override
 	public String toString() {

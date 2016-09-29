@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.alanma.doraemon.utils.file.ReadFile;
 import com.alanma.doraemon.utils.md5.TestMD5;
 import com.alanma.doraemon.utils.secret.RSAEncrypt;
 import com.alanma.doraemon.utils.secret.zl.AES;
@@ -32,11 +33,12 @@ public class TestAppReqJson {
 	private static String url = "http://192.168.101.247" + "/restful/idencode/sendMsgCode";
 
 	private static String inputStrReqHead = "{\"random\":\"168456\",\"timestamp\":\"20160606:12:00:00\",\"os\":\"v1.0.6\",\"deviceID\":\"DID123987654\",\"phoneNo\":\"13999999999\",\"phoneIMEI\":\"IMEI4989163\"}";
-	private static String inputStrData = "{\"phoneNum\":\"13999999999\",\"certBusCase\":\"01\"}";
+	private static String inputStrData = "";
 
 	public static void main(String[] args) {
+
 		getAppResMsg();
-		
+
 	}
 
 	private static String getDataInMsg(String inputStr) {
@@ -138,7 +140,7 @@ public class TestAppReqJson {
 			e.printStackTrace();
 		}
 		Sign sign = new Sign(signUrl, signMethodUrl);
-		AppReqMsg msfInfo = new AppReqMsg(sign, encryKeyUrl, encyHeadUrl, encyDataUrl);
+		AppReqMsg msfInfo = new AppReqMsg(JSONObject.toJSONString(sign), encryKeyUrl, encyHeadUrl, encyDataUrl);
 		String resp = JSONObject.toJSONString(msfInfo);
 		System.out.println("\n" + resp);
 		return resp;

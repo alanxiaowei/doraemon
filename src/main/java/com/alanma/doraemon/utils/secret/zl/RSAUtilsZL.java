@@ -92,6 +92,10 @@ public class RSAUtilsZL {
 		keyMap.put(PRIVATE_KEY, privateKey);
 		return keyMap;
 	}
+	
+	public static void main(String[] args) {
+		
+	}
 
 	/**
 	 * 从文件中输入流中加载公钥
