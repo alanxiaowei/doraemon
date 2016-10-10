@@ -775,13 +775,7 @@ public class DateUtil {
 		long time = Math.abs(date.getTime() - otherDate.getTime());
 		return (int) time / (24 * 60 * 60 * 1000);
 	}
-
-	public static void main(String[] args) {
-		String time=stampToDate(Long.toString(System.currentTimeMillis()));
-		System.out.println(time);
-		System.out.println(dateToStamp(time));
-	}
-
+	
 	public static String stampToDate(String s) {
 		String res;
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -804,5 +798,14 @@ public class DateUtil {
 		long ts = date.getTime();
 		res = String.valueOf(ts);
 		return res;
+	}
+	
+	
+	public static void main(String[] args) {
+//		String time=stampToDate(Long.toString(System.currentTimeMillis()));
+//		System.out.println(time);
+//		System.out.println(dateToStamp(time));
+		
+		System.out.println(DateToString(new Date(), DateStyle.YYYYMMDDHHMMSS.getValue()));
 	}
 }

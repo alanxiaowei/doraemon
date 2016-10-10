@@ -13,7 +13,7 @@ public class TestFastJson {
 
 	// private static String content =
 	// "{\"abc\":\"呵呵\",\"abb\":\"哈哈\",\"cca\":\"友友\",\"eco\":\"呦呦\",\"bbc\":{\"yyz\":\"露露\",\"xyz\":\"慢慢\",\"yzz\":\"恰恰\"}}";
-	private static String content = "{\"bizType\":\"000207\",\"channelType\":\"00\",\"encoding\":\"1\",\"memberId\":\"200000000001496\",\"orderInfo\":{\"currencyCode\":\"156\",\"merAbbr\":\"\",\"merId\":\"300000000000006\",\"merName\":\"互金平台8970\",\"orderDesc\":\"\",\"orderId\":\"E20160921091611\",\"orderStatus\":\"01\",\"orderType\":\"0001\",\"txnAmt\":\"0\",\"txnTime\":\"20160921091611\"},\"respCode\":\"00\",\"respMsg\":\"成功！\",\"tn\":\"160921000600063135\",\"txnSubType\":\"00\",\"txnType\":\"16\",\"version\":\"1.0\"}";
+	private static String content = "{\"custId\":\"CP001201609080000029\",\"messageIds\":[\"2016092300001517\",\"2016092200001450\"]}";
 
 	public static void main(String[] args) {
 		// System.out.println(JSONObject.toJSONString(JSONObject.parseObject(content),SerializerFeature.SortField));
