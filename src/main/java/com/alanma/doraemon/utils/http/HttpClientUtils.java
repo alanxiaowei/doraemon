@@ -27,8 +27,6 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.druid.wall.violation.ErrorCode;
-
 /**
  * @author xuchu-tang
  * @version 1.0, 2015年12月12日
