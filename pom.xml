@@ -360,6 +360,49 @@
 			</exclusions>
 		</dependency>
 
+		<!-- jh -->
+		<dependency>
+			<groupId>com.hczq.hz</groupId>
+			<artifactId>am-api-std</artifactId>
+			<version>0.0.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hczq.hz</groupId>
+			<artifactId>am-client-http</artifactId>
+			<version>0.0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore-nio</artifactId>
+			<version>4.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+			<version>4.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!-- jh -->
+		
 	</dependencies>
 	<build>
 		<finalName>zlebank-energy-business</finalName>

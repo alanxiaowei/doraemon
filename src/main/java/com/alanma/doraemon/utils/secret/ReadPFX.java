@@ -92,7 +92,7 @@ public class ReadPFX {
 	}
 
 	public static void main(String[] args) {
-		List pks = getPvkformPfx("C:\\Users\\AlanMa\\Desktop\\hj.pfx", "e10adc3949ba59abbe56e057f20f883e");
+		List pks = getPvkformPfx("C:\\Users\\AlanMa\\Desktop\\hj.pfx", "751c5c9323a441a7216fde6740cff656");
 		try {
 			System.out.println("公钥：" + RSAHelper.getKeyString((RSAPublicKey) pks.get(0)));
 			System.out.println("私钥：" + RSAHelper.getKeyString((RSAPrivateKey) pks.get(1)));
