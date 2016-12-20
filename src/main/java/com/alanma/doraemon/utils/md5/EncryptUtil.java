@@ -12,6 +12,7 @@ public class EncryptUtil {
 		if (iRet < 0) {
 			iRet += 256;
 		}
+		
 		int iD1 = iRet / 16;
 		int iD2 = iRet % 16;
 		return strDigits[iD1] + strDigits[iD2];
