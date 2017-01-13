@@ -1,4 +1,4 @@
-package com.alanma.doraemon.utils.rsa.zl;
+package com.alanma.doraemon.utils.secret.zl;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -91,6 +91,10 @@ public class RSAUtilsZL {
 		keyMap.put(PUBLIC_KEY, publicKey);
 		keyMap.put(PRIVATE_KEY, privateKey);
 		return keyMap;
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 
 	/**

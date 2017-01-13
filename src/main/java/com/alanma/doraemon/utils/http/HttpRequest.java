@@ -78,6 +78,7 @@ public class HttpRequest {
 		return result;
 	}
 
+
 	/**
 	 * 向指定 URL 发送POST方法的请求
 	 * 
@@ -181,8 +182,9 @@ public class HttpRequest {
 		// // sendPost(url, param);
 		// postStrut2(url);
 
-		String result = sendPost("http://192.168.101.134/message/sms.http.php",
-				"Name=hujin&Passwd=hujin&Phone=18210219964&Content=%E6%B5%8B%E8%AF%95%E4%BA%92%E9%87%91001");
-		System.out.println(result);
+//		String result = sendPost("http://192.168.101.134/message/sms.http.php",
+//				"Name=hujin&Passwd=hujin&Phone=18210219964&Content=%E6%B5%8B%E8%AF%95%E4%BA%92%E9%87%91001");
+//		System.out.println(result);
+		sendGet("http://yzm.mb345.com/ws/LinkWS.asmx/BatchSend", "CorpID=CQLKY077&Pwd=ss1103@&Mobile=18636180181&Content=666666&Cell=&SendTime=");
 	}
 }

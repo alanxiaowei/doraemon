@@ -1,5 +1,7 @@
 package com.alanma.doraemon.utils.time;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -772,5 +774,38 @@ public class DateUtil {
 		date = DateUtil.StringToDate(DateUtil.getDate(date));
 		long time = Math.abs(date.getTime() - otherDate.getTime());
 		return (int) time / (24 * 60 * 60 * 1000);
+	}
+	
+	public static String stampToDate(String s) {
+		String res;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long lt = new Long(s);
+		Date date = new Date(lt);
+		res = simpleDateFormat.format(date);
+		return res;
+	}
+
+	public static String dateToStamp(String s) {
+		String res;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = null;
+		try {
+			date = simpleDateFormat.parse(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		long ts = date.getTime();
+		res = String.valueOf(ts);
+		return res;
+	}
+	
+	
+	public static void main(String[] args) {
+//		String time=stampToDate(Long.toString(System.currentTimeMillis()));
+//		System.out.println(time);
+//		System.out.println(dateToStamp(time));
+		
+		System.out.println(DateToString(new Date(), DateStyle.YYYYMMDDHHMMSS.getValue()));
 	}
 }

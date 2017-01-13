@@ -1,38 +1,38 @@
 package com.alanma.doraemon.utils.appreq;
 
-public class MsgInfo {
-	private Sign sign;
-	private String encryKey;
+public class AppReqMsg {
+	private String sign;
+	private String encry;
 	private String reqHead;
 	private String data;
 
-	public MsgInfo() {
+	public AppReqMsg() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public MsgInfo(Sign sign, String encryKey, String reqHead, String data) {
+	public AppReqMsg(String sign, String encry, String reqHead, String data) {
 		super();
 		this.sign = sign;
-		this.encryKey = encryKey;
+		this.encry = encry;
 		this.reqHead = reqHead;
 		this.data = data;
 	}
 
-	public Sign getSign() {
+	public String getSign() {
 		return sign;
 	}
 
-	public void setSign(Sign sign) {
+	public void setSign(String sign) {
 		this.sign = sign;
 	}
 
-	public String getEncryKey() {
-		return encryKey;
+	public String getEncry() {
+		return encry;
 	}
 
-	public void setEncryKey(String encryKey) {
-		this.encryKey = encryKey;
+	public void setEncry(String encry) {
+		this.encry = encry;
 	}
 
 	public String getReqHead() {
@@ -51,11 +51,9 @@ public class MsgInfo {
 		this.data = data;
 	}
 
-	
-
 	@Override
 	public String toString() {
-		return "MsgInfo [sign=" + sign + ", encryKey=" + encryKey + ", reqHead=" + reqHead + ", data=" + data + "]";
+		return "MsgInfo [sign=" + sign + ", encry=" + encry + ", reqHead=" + reqHead + ", data=" + data + "]";
 	}
 
 }

@@ -7,10 +7,10 @@ import java.util.Map;
 
 import com.alanma.doraemon.utils.md5.QEncodeUtil;
 import com.alanma.doraemon.utils.md5.TestMD5;
-import com.alanma.doraemon.utils.rsa.Base64;
-import com.alanma.doraemon.utils.rsa.zl.AES;
-import com.alanma.doraemon.utils.rsa.zl.Base64Utils;
-import com.alanma.doraemon.utils.rsa.zl.RSAUtilsZL;
+import com.alanma.doraemon.utils.secret.Base64;
+import com.alanma.doraemon.utils.secret.zl.AES;
+import com.alanma.doraemon.utils.secret.zl.Base64Utils;
+import com.alanma.doraemon.utils.secret.zl.RSAUtilsZL;
 import com.alibaba.fastjson.JSONObject;
 
 public class SimulateServer {

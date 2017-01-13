@@ -1,4 +1,4 @@
-package com.alanma.doraemon.utils.rsa.zl;
+package com.alanma.doraemon.utils.secret.zl;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -10,6 +10,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AES {
@@ -28,13 +29,13 @@ public class AES {
 			// kgen.init(128, new SecureRandom(password.getBytes()));
 			// SecretKey secretKey = kgen.generateKey();
 			// byte[] enCodeFormat = secretKey.getEncoded();
-			
-			byte [] bb = parseHexStr2Byte(password);
-			
-//			for (int i =0; i<bb.length; i++)
-//			{
-//				System.out.printf("=====================%d\n",bb[i] &0xff);
-//			}
+
+			byte[] bb = parseHexStr2Byte(password);
+
+			// for (int i =0; i<bb.length; i++)
+			// {
+			// System.out.printf("=====================%d\n",bb[i] &0xff);
+			// }
 
 			SecretKeySpec key = new SecretKeySpec(parseHexStr2Byte(password), "AES");
 			// Cipher cipher = Cipher.getInstance("AES");// 创建密码器
@@ -167,44 +168,67 @@ public class AES {
 		return null;
 	}
 
-	public static void main(String[] args) throws Exception {
-		String content = "test";
-		String password = "12345678";
-		// 加密
-		System.out.println("加密前：" + content);
-		byte[] encryptResult = encrypt(content, password);
-		String tt4 = Base64Utils.encode(encryptResult);
-		System.out.println(new String(tt4));
+	// public static void main(String[] args) throws Exception {
+	// String content = "test";
+	// String password = "12345678";
+	// // 加密
+	// System.out.println("加密前：" + content);
+	// byte[] encryptResult = encrypt(content, password);
+	// String tt4 = Base64Utils.encode(encryptResult);
+	// System.out.println(new String(tt4));
+	//
+	// // 解密
+	// byte[] decryptResult = decrypt(encryptResult, password);
+	// System.out.println("解密后：" + new String(decryptResult));
+	//
+	// final SecureRandom random = new SecureRandom(new
+	// String("123455333333").getBytes());
+	// // final SecureRandom random = new SecureRandom();
+	// final KeyGenerator generate;
+	//
+	// generate = KeyGenerator.getInstance("AES");
+	//
+	// generate.init(192, random);
+	// // System.out.println(new String(generate.generateKey().getEncoded()));
+	// PrintUtils.printHex(generate.generateKey().getEncoded());
+	//
+	// SecureRandom random2 = null;
+	//
+	// byte[] b = new byte[192];
+	// for (int i = 0; i < 10; i++) {
+	// random2 = SecureRandom.getInstance("SHA1PRNG");
+	// random2.nextBytes(b);
+	//
+	// random2.setSeed("123455333333".getBytes());
+	// generate.init(192, random2);
+	// // System.out.println(new
+	// // String(generate.generateKey().getEncoded()));
+	// PrintUtils.printHex(generate.generateKey().getEncoded());
+	//
+	// }
+	//
+	// }
 
-		// 解密
-		byte[] decryptResult = decrypt(encryptResult, password);
-		System.out.println("解密后：" + new String(decryptResult));
-
-		final SecureRandom random = new SecureRandom(new String("123455333333").getBytes());
-		// final SecureRandom random = new SecureRandom();
-		final KeyGenerator generate;
-
-		generate = KeyGenerator.getInstance("AES");
-
-		generate.init(192, random);
-		// System.out.println(new String(generate.generateKey().getEncoded()));
-		PrintUtils.printHex(generate.generateKey().getEncoded());
-
-		SecureRandom random2 = null;
-
-		byte[] b = new byte[192];
-		for (int i = 0; i < 10; i++) {
-			random2 = SecureRandom.getInstance("SHA1PRNG");
-			random2.nextBytes(b);
-
-			random2.setSeed("123455333333".getBytes());
-			generate.init(192, random2);
-			// System.out.println(new
-			// String(generate.generateKey().getEncoded()));
-			PrintUtils.printHex(generate.generateKey().getEncoded());
-
+	public static String generateKey() {
+		String s = null;
+		try {
+			KeyGenerator kg = KeyGenerator.getInstance("AES");
+			kg.init(128);// 要生成多少位，只需要修改这里即可128, 192或256
+			SecretKey sk = kg.generateKey();
+			byte[] b = sk.getEncoded();
+			s = parseByte2HexStr(b);
+			System.out.println(s);
+			System.out.println("十六进制密钥长度为" + s.length());
+			System.out.println("二进制密钥的长度为" + s.length() * 4);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			System.out.println("没有此算法。");
 		}
+		return s;
+	}
 
+	public static void main(String[] args) {
+		generateKey();
 	}
 
 }

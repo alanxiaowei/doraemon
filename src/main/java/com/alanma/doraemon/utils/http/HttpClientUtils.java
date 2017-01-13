@@ -2,6 +2,7 @@ package com.alanma.doraemon.utils.http;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -221,5 +224,80 @@ public class HttpClientUtils {
 	// paramMap, null);
 	// System.out.println("=========:" + result.toString());
 	// }
+	
+	/**
+	 * @param url
+	 *            形如：http://ip:port/xxx/xxx
+	 * @param paramMap
+	 *            post提交的参数
+	 * @param charset
+	 *            设置特点字符集，默认为utf-8
+	 * @param contentType
+	 *            内容类型，默认为application/json;charset=utf-8
+	 * @return 返回http 的状态（status）、回执内容(entity-->HttpEntity
+	 *         可根据自己需求解析HttpEntity对象)
+	 * @throws MyBusinessCheckException
+	 */
+
+	public static Map<String, Object> sendPostNew(String url, Map<String, String> paramMap, String charset, String contentType) throws SocketTimeoutException {
+
+		if (url == null) {
+			logger.error("url is null ");
+			throw new RuntimeException("url is null");
+		}
+		// 创建默认的httpClient实例.
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		// 创建httppost
+		HttpPost httppost = new HttpPost(url);
+		httppost.setHeader("Content-Type", contentType == null ? "application/json;charset=utf-8" : contentType);
+		// 设置请求和传输超时时间
+		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(30000).setConnectTimeout(20000).build();
+		httppost.setConfig(requestConfig);
+		// 创建参数队列
+		List<BasicNameValuePair> formparams = new ArrayList<BasicNameValuePair>();
+		// 处理参数
+		for (Entry<String, String> entry : paramMap.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			formparams.add(new BasicNameValuePair(key, value));
+		}
+		// return map
+		Map<String, Object> retMap = new HashMap<String, Object>();
+		UrlEncodedFormEntity uefEntity;
+		try {
+			uefEntity = new UrlEncodedFormEntity(formparams, charset == null ? "UTF-8" : charset);
+			// System.out.println("[请求参数]:"+uefEntity.getContent().toString());
+			httppost.setEntity(uefEntity);
+			System.out.println("executing request " + httppost.getURI());
+			CloseableHttpResponse response = httpclient.execute(httppost);
+			String content = null;
+			try {
+				HttpEntity entity = response.getEntity();
+				if (entity != null) {
+					content = EntityUtils.toString(entity, "UTF-8");
+					System.out.println("Response content: ");
+				}
+				retMap.put("status", response.getStatusLine());
+				retMap.put("entity", entity);
+				retMap.put("content", content);
+			} finally {
+				closeConnect(response);
+			}
+		} catch (UnsupportedEncodingException e) {
+			logger.error("UnsupportedEncodingException", e);
+		} catch (SocketTimeoutException e) {
+			logger.error("SocketTimeoutException", e);
+			throw e;
+		} catch (ConnectTimeoutException e) {
+			logger.error("ConnectTimeoutException", e);
+		} catch (IOException e) {
+			logger.error("IOException", e);
+		} finally {
+			closeConnect(httpclient);
+		}
+
+		return retMap;
+	}
+
 
 }
