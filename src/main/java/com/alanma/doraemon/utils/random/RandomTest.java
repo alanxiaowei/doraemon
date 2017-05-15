@@ -10,7 +10,7 @@ public class RandomTest {
     }
 
     public static void main(String[] args) {
-        System.out.println(rand(10));
+        System.out.println(rand(8));
     }
 
 }

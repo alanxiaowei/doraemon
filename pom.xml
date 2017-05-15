@@ -13,6 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.deploy>deploy</project.deploy>
 		<project.tomcat.version>8.0.0-RC5</project.tomcat.version>
+		<io.netty.ver>4.0.42.Final</io.netty.ver>
 	</properties>
 
 	<dependencies>
@@ -361,7 +362,7 @@
 		</dependency>
 
 		<!-- jh -->
-		<dependency>
+		<!--<dependency>
 			<groupId>com.hczq.hz</groupId>
 			<artifactId>am-api-std</artifactId>
 			<version>0.0.11</version>
@@ -370,7 +371,7 @@
 			<groupId>com.hczq.hz</groupId>
 			<artifactId>am-client-http</artifactId>
 			<version>0.0.8</version>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -402,6 +403,11 @@
 			<version>2.4.0</version>
 		</dependency>
 		<!-- jh -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>${io.netty.ver}</version>
+		</dependency>
 		
 	</dependencies>
 	<build>
