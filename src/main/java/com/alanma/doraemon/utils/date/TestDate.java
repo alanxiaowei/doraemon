@@ -3,6 +3,10 @@ package com.alanma.doraemon.utils.date;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author AlanMa
+ *
+ */
 public class TestDate {
 
     public static void main(String[] args) {

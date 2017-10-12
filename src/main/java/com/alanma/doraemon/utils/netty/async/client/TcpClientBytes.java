@@ -14,11 +14,11 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.bytes.ByteArrayDecoder;
+import io.netty.handler.codec.bytes.ByteArrayEncoder;
 
-public class TcpClient {
-	private static final Logger logger = Logger.getLogger(TcpClient.class);
+public class TcpClientBytes {
+	private static final Logger logger = Logger.getLogger(TcpClientBytes.class);
 	public static String HOST = "127.0.0.1";
 	public static int PORT = 8999;
 
@@ -37,9 +37,13 @@ public class TcpClient {
 			@Override
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipeline = ch.pipeline();
-				pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-				pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
-				pipeline.addLast("handler", new TcpClientHandler());
+				// pipeline.addLast("frameDecoder", new
+				// LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+				// pipeline.addLast("frameEncoder", new
+				// LengthFieldPrepender(4));
+				pipeline.addLast(new ByteArrayDecoder());
+				pipeline.addLast(new ByteArrayEncoder());
+				pipeline.addLast(new TcpClientHandlerBytes());
 			}
 		});
 		// b.option(ChannelOption.SO_KEEPALIVE, true);
@@ -59,7 +63,7 @@ public class TcpClient {
 
 	public static void sendMsg(Channel channel, Object msg) throws Exception {
 		if (channel != null) {
-			channel.writeAndFlush(msg).sync();
+			channel.writeAndFlush(msg);
 		} else {
 			logger.warn("消息发送失败,连接尚未建立!");
 		}
@@ -82,7 +86,7 @@ public class TcpClient {
 							ByteBufAllocator alloc = channel.alloc();
 							ByteBuf buf = alloc.buffer(value.length);
 							buf.writeBytes(value);
-							TcpClient.sendMsg(channel, buf);
+							TcpClientBytes.sendMsg(channel, buf);
 						} catch (Exception e) {
 							logger.error("【send message to HangZhou Clearing Center failed！！！】", e);
 						}
@@ -91,9 +95,9 @@ public class TcpClient {
 
 			}
 			long t1 = System.nanoTime();
-			System.out.println("=========================【处理时间】："+(t1 - t0) / 1000000.0);
+			System.out.println("=========================【处理时间】：" + (t1 - t0) / 1000000.0);
 			Thread.sleep(5000);
-			System.exit(0);
+			// System.exit(0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

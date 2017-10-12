@@ -17,6 +17,11 @@ import com.alanma.doraemon.utils.secret.zl.Base64Utils;
 import com.alanma.doraemon.utils.secret.zl.RSAUtilsZL;
 import com.alibaba.fastjson.JSONObject;
 
+/**
+ * @Description 测试app请求
+ * @version 1.0.0
+ * @date 2017-01-06
+ */
 public class TestAppReqJson {
 
 	/**
