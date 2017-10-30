@@ -23,14 +23,19 @@ public class HttpClientTest {
 	private static HttpClientContext context = HttpClientContext.adapt(localContext);
 
 	public static void main(String[] args) throws Exception {
-		CloseableHttpClient httpClient = HttpClients.createDefault();
+//		testPost();
+		testGet();
+	}
 
+	private static void testPost() throws Exception {
+		CloseableHttpClient httpClient = HttpClients.createDefault();
 		try {
 			// 模拟表单
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("username", "**"));
+			params.add(new BasicNameValuePair("download",
+					"http://xxx.xxx.xxx/xxxx/FileDownServlet?filename=808080001000116_20090610_20090611031159.txt"));
 			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, "UTF-8");
-			HttpPost httpPost = new HttpPost("http://localhost:8080/spiderweb/RirectServlet");
+			HttpPost httpPost = new HttpPost("http://127.0.0.1:8887/path-cp/notice/chkfdown");
 			httpPost.setEntity(entity);
 
 			// 将HttpClientContext传入execute()中
@@ -38,7 +43,7 @@ public class HttpClientTest {
 
 			try {
 				HttpEntity responseEntity = response.getEntity();
-				System.out.println(EntityUtils.toString(responseEntity));
+				System.out.println("=================:" + EntityUtils.toString(responseEntity));
 
 			} finally {
 				response.close();
@@ -46,23 +51,25 @@ public class HttpClientTest {
 		} finally {
 			httpClient.close();
 		}
+	}
 
+	private static void testGet() throws Exception {
 		CloseableHttpClient httpClient2 = HttpClients.createDefault();
 
 		try {
-			HttpGet httpGet = new HttpGet("http://localhost:8080/spiderweb/RirectServlet");
+			HttpGet httpGet = new HttpGet("http://localhost:8887/path-cp/notice/chkfdown?download='http://xxx.xxx.xxx/xxxx/FileDownServlet?filename=808080001000116_20090610_20090611031159.txt'");
 
 			// 设置相同的HttpClientContext
 			CloseableHttpResponse response = httpClient2.execute(httpGet, context);
 			try {
 				HttpEntity entity = response.getEntity();
-				System.out.println(EntityUtils.toString(entity));
+				System.out.println("=================:" +EntityUtils.toString(entity));
 			} finally {
 				response.close();
 			}
 		} finally {
 			httpClient2.close();
 		}
-
 	}
+
 }

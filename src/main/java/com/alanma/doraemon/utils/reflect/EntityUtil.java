@@ -47,5 +47,13 @@ public class EntityUtil {
 		}
 		return entityPOJOs;
 	}
+	
+	/**
+	 * @param val
+	 * @return
+	 */
+	public static String firstToLower(String val) {
+		return val.substring(0, 1).toLowerCase() + val.substring(1);
+	}
 
 }
