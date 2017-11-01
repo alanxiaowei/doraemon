@@ -57,7 +57,7 @@ public class HttpClientTest {
 		CloseableHttpClient httpClient2 = HttpClients.createDefault();
 
 		try {
-			HttpGet httpGet = new HttpGet("http://localhost:8887/path-cp/notice/chkfdown?download='http://xxx.xxx.xxx/xxxx/FileDownServlet?filename=808080001000116_20090610_20090611031159.txt'");
+			HttpGet httpGet = new HttpGet("http://192.168.2.20:8887/path-cp/notice/chkfdown?download=http://xxx.xxx.xxx/xxxx/FileDownServlet?filename=808080001000116_20090610_20090611031159.txt");
 
 			// 设置相同的HttpClientContext
 			CloseableHttpResponse response = httpClient2.execute(httpGet, context);
