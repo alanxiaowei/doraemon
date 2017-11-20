@@ -37,6 +37,7 @@ import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.LayeredConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -262,4 +263,30 @@ public class HttpClientUtilPool {
 			}
 		}
 	}
+	
+    public static String post(String message, String url, String charset) throws IOException {
+        HttpPost httpost = new HttpPost(url);
+        config(httpost);
+        CloseableHttpResponse response = null;
+        try {
+            httpost.setEntity(new StringEntity(message, charset));
+            response = getHttpClient(url).execute(httpost, HttpClientContext.create());
+            HttpEntity entity = response.getEntity();
+            String result = EntityUtils.toString(entity, charset);
+            EntityUtils.consume(entity);
+            return result;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            try {
+                if (response != null)
+                    response.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
