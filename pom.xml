@@ -362,16 +362,9 @@
 		</dependency>
 
 		<!-- jh -->
-		<!--<dependency>
-			<groupId>com.hczq.hz</groupId>
-			<artifactId>am-api-std</artifactId>
-			<version>0.0.11</version>
-		</dependency>
-		<dependency>
-			<groupId>com.hczq.hz</groupId>
-			<artifactId>am-client-http</artifactId>
-			<version>0.0.8</version>
-		</dependency>-->
+		<!--<dependency> <groupId>com.hczq.hz</groupId> <artifactId>am-api-std</artifactId> 
+			<version>0.0.11</version> </dependency> <dependency> <groupId>com.hczq.hz</groupId> 
+			<artifactId>am-client-http</artifactId> <version>0.0.8</version> </dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -409,11 +402,15 @@
 			<version>${io.netty.ver}</version>
 		</dependency>
 		<dependency>
-		<groupId>redis.clients</groupId>
+			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 			<version>2.8.2</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.54</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>zlebank-energy-business</finalName>

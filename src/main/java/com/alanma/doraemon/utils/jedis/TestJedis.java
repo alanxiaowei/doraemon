@@ -1,5 +1,7 @@
 package com.alanma.doraemon.utils.jedis;
 
+import com.alanma.doraemon.utils.multhread.pool.ThreadPoolProcessor;
+
 import redis.clients.jedis.Jedis;
 
 public class TestJedis {
@@ -45,14 +47,13 @@ public class TestJedis {
 	}
 
 	public static void main(String[] args) {
-		Jedis jedis = JedisPoolUtils.getJedis();
-		// String result=jedis.set("notice", "键都丢了");
-		// String value=jedis.get("notice");
-		// System.out.println("======="+result);
-		// System.out.println("======="+value);
-		// testZSet(jedis);
-		// testStringExTime(jedis);
-		System.out.println(jedis.hgetAll("9498948"));
+		ThreadPoolProcessor pool = ThreadPoolProcessor.getInstanceFixed(30);
+
+		for (int i = 0; i < 30; i++) {
+			MsgSender msgSender = new MsgSender(i);
+			pool.execute(msgSender);
+		}
+
 	}
 
 }

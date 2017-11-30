@@ -12,15 +12,15 @@ public class WriteFile {
 	 * 缓冲字符（BufferedWriter
 	 * ）是一个字符流类来处理字符数据。不同于字节流（数据转换成字节），可以直接写字符串，数组或字符数据保存到文件。
 	 */
-	private void egBufferedWriter() {
+	private static void egBufferedWriter() {
 		try {
 			String content = "This is the content to write into file";
-			File file = new File("/users/mkyong/filename.txt");
+			File file = new File("D:/testfile.txt");
 			// if file doesnt exists, then create it
 			if (!file.exists()) {
 				file.createNewFile();
 			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(content);
 			bw.close();
@@ -38,7 +38,7 @@ public class WriteFile {
 		File file;
 		try {
 			file = new File("d:/newfile.txt");
-			fop = new FileOutputStream(file);
+			fop = new FileOutputStream(file,true);
 			// if file doesnt exists, then create it
 			if (!file.exists()) {
 				file.createNewFile();
@@ -63,7 +63,7 @@ public class WriteFile {
 	}
 	
 	public static void main(String[] args) {
-		egFileOutputStream("你好大风等多个");
+		egBufferedWriter();
 	}
 
 }

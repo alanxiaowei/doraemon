@@ -12,7 +12,7 @@ public class JedisPoolUtils {
 
 	private static int MAX_ACTIVE = 20;
 	private static int MAX_WAIT = 15000;
-	private static int MAX_IDLE = 8;
+	private static int MAX_IDLE = 20;
 	private static String HOST = "192.168.2.12";
 	private static int PORT = 6379;
 
@@ -66,7 +66,7 @@ public class JedisPoolUtils {
 	 * @param jedis
 	 */
 	public static void returnRes(Jedis jedis) {
-		pool.returnResource(jedis);
+		jedis.close();
 	}
 
 }
