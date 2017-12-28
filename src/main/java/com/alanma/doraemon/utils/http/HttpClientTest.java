@@ -17,14 +17,45 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
+import com.alanma.doraemon.utils.multhread.pool.ThreadPoolProcessor;
+
 public class HttpClientTest {
 
 	private static HttpContext localContext = new BasicHttpContext();
 	private static HttpClientContext context = HttpClientContext.adapt(localContext);
 
 	public static void main(String[] args) throws Exception {
-//		testPost();
-		testGet();
+		// testPost();
+		// testGet();
+		HttpClientTest test = new HttpClientTest();
+		test.testGetNew();
+	}
+
+	private void testGetNew() {
+		String url = "https://www.toutiao.com/i6496332811849433614/?tt_from=weixin&utm_campaign=client_share&app=news_article&utm_source=weixin&iid=18935583673&utm_medium=toutiao_ios&wxshare_count=";
+		ThreadPoolProcessor pool = ThreadPoolProcessor.getInstanceFixed(20);
+		for (int i = 1; i < 100; i++) {
+			url = url + ++i;
+			MsgSender msgSender = new MsgSender(url);
+			pool.execute(msgSender);
+		}
+		System.out.println("Finish~~~");
+
+	}
+
+	class MsgSender implements Runnable {
+
+		private String url;
+
+		public MsgSender(String url) {
+			super();
+			this.url = url;
+		}
+
+		@Override
+		public void run() {
+			HttpClientUtilPool.get(url);
+		}
 	}
 
 	private static void testPost() throws Exception {
@@ -57,13 +88,14 @@ public class HttpClientTest {
 		CloseableHttpClient httpClient2 = HttpClients.createDefault();
 
 		try {
-			HttpGet httpGet = new HttpGet("http://192.168.2.20:8887/path-cp/notice/chkfdown?download=http://xxx.xxx.xxx/xxxx/FileDownServlet?filename=808080001000116_20090610_20090611031159.txt");
+			HttpGet httpGet = new HttpGet(
+					"http://192.168.2.20:8887/path-cp/notice/chkfdown?download=http://xxx.xxx.xxx/xxxx/FileDownServlet?filename=808080001000116_20090610_20090611031159.txt");
 
 			// 设置相同的HttpClientContext
 			CloseableHttpResponse response = httpClient2.execute(httpGet, context);
 			try {
 				HttpEntity entity = response.getEntity();
-				System.out.println("=================:" +EntityUtils.toString(entity));
+				System.out.println("=================:" + EntityUtils.toString(entity));
 			} finally {
 				response.close();
 			}
