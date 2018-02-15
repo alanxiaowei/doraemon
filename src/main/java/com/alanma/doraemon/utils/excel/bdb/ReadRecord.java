@@ -104,7 +104,7 @@ public class ReadRecord {
 	}
 	
 	public static void main(String[] args) {
-		String path = "D:\\数据类型.xlsx";
+		String path = "/alandev/注册账户-BDB发放.xlsx";
 		ReadRecord rr = new ReadRecord();
 		List<PurchaseInfoVO> list = rr.getPurchaseInfo(path);
 		System.out.println(list);
