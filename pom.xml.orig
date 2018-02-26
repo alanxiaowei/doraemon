@@ -7,7 +7,11 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>yyyyxxxdoraemon</name>
+<<<<<<< HEAD
+	<name>xxxdoraemon</name>
+=======
+	<name>doraemonxxxxx</name>
+>>>>>>> springboot
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
