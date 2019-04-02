@@ -78,7 +78,6 @@ public class HttpRequest {
 		return result;
 	}
 
-
 	/**
 	 * 向指定 URL 发送POST方法的请求
 	 * 
@@ -97,9 +96,10 @@ public class HttpRequest {
 			// 打开和URL之间的连接
 			URLConnection conn = realUrl.openConnection();
 			// 设置通用的请求属性
-			conn.setRequestProperty("accept", "*/*");
-			conn.setRequestProperty("connection", "keep-alive");
-			conn.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.63 Safari/537.36");
+//			conn.setRequestProperty("accept", "*/*");
+//			conn.setRequestProperty("connection", "keep-alive");
+//			conn.setRequestProperty("user-agent",
+//					"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.63 Safari/537.36");
 			// 发送POST请求必须设置如下两行
 			conn.setDoOutput(true);
 			conn.setDoInput(true);
@@ -182,9 +182,20 @@ public class HttpRequest {
 		// // sendPost(url, param);
 		// postStrut2(url);
 
-//		String result = sendPost("http://192.168.101.134/message/sms.http.php",
-//				"Name=hujin&Passwd=hujin&Phone=18210219964&Content=%E6%B5%8B%E8%AF%95%E4%BA%92%E9%87%91001");
-//		System.out.println(result);
-		sendGet("http://yzm.mb345.com/ws/LinkWS.asmx/BatchSend", "CorpID=CQLKY077&Pwd=ss1103@&Mobile=18636180181&Content=666666&Cell=&SendTime=");
+		// String result = sendPost("http://192.168.101.134/message/sms.http.php",
+		// "Name=hujin&Passwd=hujin&Phone=18210219964&Content=%E6%B5%8B%E8%AF%95%E4%BA%92%E9%87%91001");
+		// System.out.println(result);
+		// sendGet("http://yzm.mb345.com/ws/LinkWS.asmx/BatchSend",
+		// "CorpID=CQLKY077&Pwd=ss1103@&Mobile=18636180181&Content=666666&Cell=&SendTime=");
+		String url = "http://star-mars.8.163.com/api/btcdo/orderNotice";
+		String param = "{\"appId\":\"S00263806\",\"sign\":\"OsAPj6wSYD/pJCsCpMCYGuzXR4GLpFIdr74yevJmcMbnzp6zImF2sJPowRz703F0gyB2ZKyiCvNOEun5sZyqgbvs6YvxYBp7N3xRJuMekY7L3NdxsCXSHua16fzDCy1kUoRPcuBAsB5oqHHoEXmXx3wHE6kXXp8cOVH19zABoKY=\"}";
+		
+		try {
+			String result=sendPost(url, param);
+			System.out.println(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("end========");
 	}
 }

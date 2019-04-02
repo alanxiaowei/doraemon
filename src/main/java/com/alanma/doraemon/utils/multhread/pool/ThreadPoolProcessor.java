@@ -1,10 +1,15 @@
 package com.alanma.doraemon.utils.multhread.pool;
 
+import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+
+
+
 
 /**
  * 线程处理类
@@ -145,6 +150,14 @@ public class ThreadPoolProcessor {
 	 */
 	public void schedule(Runnable command, long delay) {
 		((ScheduledExecutorService) executor).schedule(command, delay, TimeUnit.SECONDS);
+	}
+
+	public void invokeAll(Collection tasks) {
+		try {
+			executor.invokeAll(tasks);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

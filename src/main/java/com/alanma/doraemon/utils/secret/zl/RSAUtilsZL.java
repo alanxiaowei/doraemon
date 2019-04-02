@@ -292,7 +292,6 @@ public class RSAUtilsZL {
 		int offSet = 0;
 		byte[] cache;
 		int i = 0;
-		int index = 0;
 
 		// 对数据分段解密
 		while (inputLen - offSet > 0) {

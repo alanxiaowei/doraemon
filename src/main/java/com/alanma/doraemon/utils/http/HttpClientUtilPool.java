@@ -47,7 +47,7 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpClientUtilPool {
 
-	static final int timeOut = 10 * 1000;
+	static final int timeOut = 30 * 1000;
 
 	private static CloseableHttpClient httpClient = null;
 

@@ -10,6 +10,8 @@ public class TestList {
         ArrayList list=new ArrayList();
         list.add("001");
         list.add("002");
+        list.add("003");
+        list.add("004");
         
         String[] str=new String[2];
         str[0]="001";
@@ -20,6 +22,8 @@ public class TestList {
         System.out.println(list.size());
         System.out.println(list.toString());
         System.out.println("条件的值JavaList，如：[\"列\",\"=\",值]或[[\"列1\",\"=\",值1,\"and\"],[\"列2\",\"<\",值2]]");
+        
+        System.out.println("~~~~~~~~~~~~~:"+list.subList(0, 2));
     }
     
     

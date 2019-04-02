@@ -1,5 +1,6 @@
 package com.alanma.doraemon.utils.http;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +26,34 @@ public class HttpClientTest {
 	private static HttpClientContext context = HttpClientContext.adapt(localContext);
 
 	public static void main(String[] args) throws Exception {
-		// testPost();
+		 testPost();
 		// testGet();
-		HttpClientTest test = new HttpClientTest();
-		test.testGetNew();
+//		HttpClientTest test = new HttpClientTest();
+//		test.testConfig();
+		// test.zan();
+	}
+
+	private void zan() {
+		String url = "https://api.jinse.com/v4/live/zan";
+		ThreadPoolProcessor pool = ThreadPoolProcessor.getInstanceFixed(20);
+		for (int i = 1; i < 20; i++) {
+			MsgSenderPost msgSender = new MsgSenderPost(url);
+			pool.execute(msgSender);
+		}
+		System.out.println("Finish~~~");
+
+	}
+
+	private void testConfig() {
+		// String url = "http://www.baidu.com";
+		String url = "http://192.168.2.127:8888/api/simulation";
+		ThreadPoolProcessor pool = ThreadPoolProcessor.getInstanceFixed(20);
+		for (int i = 1; i < 200; i++) {
+			MsgSender msgSender = new MsgSender(url);
+			pool.execute(msgSender);
+		}
+		System.out.println("Finish~~~");
+
 	}
 
 	private void testGetNew() {
@@ -54,7 +79,27 @@ public class HttpClientTest {
 
 		@Override
 		public void run() {
-			HttpClientUtilPool.get(url);
+			System.out.println(HttpClientUtilPool.get(url));
+		}
+	}
+
+	class MsgSenderPost implements Runnable {
+
+		private String url;
+
+		public MsgSenderPost(String url) {
+			super();
+			this.url = url;
+		}
+
+		@Override
+		public void run() {
+			try {
+				System.out.println(HttpClientUtilPool.post(url, null));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
