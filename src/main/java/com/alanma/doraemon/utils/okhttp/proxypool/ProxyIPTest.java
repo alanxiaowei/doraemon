@@ -24,7 +24,7 @@ public class ProxyIPTest {
 	String fileName = "/git/doraemon/src/main/java/com/alanma/doraemon/utils/okhttp/proxypool/ip.txt";
 
 	List<IPObj> copyIps = new ArrayList<IPObj>();
-	
+
 	public void init() {
 		List<IPObj> ips = readIPs();
 		copyIps.addAll(ips);
@@ -78,7 +78,7 @@ public class ProxyIPTest {
 				@Override
 				public void onResponse(Call call, Response response) throws IOException {
 					System.out.println("============:" + response.toString());
-					copyIps.add(new IPObj(ip,port));
+					copyIps.add(new IPObj(ip, port));
 				}
 
 				@Override
@@ -167,20 +167,30 @@ public class ProxyIPTest {
 		ProxyIPTest test = new ProxyIPTest();
 		List<IPObj> ips = test.readIPs();
 
-		
 		ips.forEach(ipObj -> {
 			test.businessTest(ipObj.ip, ipObj.port);
 		});
 
 		System.out.println("\n~~~finish connecting~~~\n");
-		
+
 		try {
-			Thread.sleep(300_000);
+			Thread.sleep(90_000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("\n\n\n~~~The result is:" + test.copyIps.toString() + "\n\n\n");
+		System.out.println("\n\n\n~~~The result is below:" + "\n");
+
+		printFormatter(test.copyIps);
+	}
+
+	private static void printFormatter(List<IPObj> copyIps) {
+		
+		copyIps.forEach(ipObj->{
+			System.out.println("--ip:"+ipObj.ip);
+			System.out.println("--port:"+ipObj.port);
+		});
+		
 	}
 
 }
