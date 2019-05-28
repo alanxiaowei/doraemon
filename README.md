@@ -30,5 +30,5 @@ $ mvn -DskipTests=true clean package
 ### Run
 
 ```java
-java -jar itranswarp.jar
+java -jar doreamon.jar
 ```
