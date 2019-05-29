@@ -1,0 +1,10 @@
+# 全局配置:
+spring:
+  profiles:
+    active: ${ENV:native}
+    
+server:
+  port: 8726
+  
+
+
