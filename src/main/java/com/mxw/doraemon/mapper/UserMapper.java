@@ -15,10 +15,9 @@ import java.util.List;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-	List<User> getUserListByName(@Param("name") String name);
+	List<User> getByNameSQLXML(@Param("name") String name);
 
 	@Select("select * from user where name ='${name}'")
 	List<User> getByNameSQL(@Param("name") String name);
-
 
 }

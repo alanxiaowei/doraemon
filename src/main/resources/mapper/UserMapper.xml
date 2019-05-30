@@ -4,10 +4,8 @@
     <resultMap id="user" type="com.mxw.doraemon.entity.User"/>
     <parameterMap id="user" type="com.mxw.doraemon.entity.User"/>
 
-
-    <select id="getUserListByName" resultMap="user" parameterType="java.lang.String">
+    <select id="getByNameSQLXML" resultMap="user" parameterType="java.lang.String">
         SELECT  * FROM USER where name= #{name,jdbcType=VARCHAR}
     </select>
-
 
 </mapper>
