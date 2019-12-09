@@ -18,7 +18,7 @@ public class Producer {
 		DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupNameTest");
 		// producer.setNamesrvAddr("13.113.159.39:9876");
 		// producer.setNamesrvAddr("192.168.2.172:9876"); //staging
-		producer.setNamesrvAddr("192.168.2.167:10909");
+		producer.setNamesrvAddr("127.0.0.1:9876;192.168.2.183:9876");
 		producer.setInstanceName("ProducerTest");
 		producer.setVipChannelEnabled(false);
 

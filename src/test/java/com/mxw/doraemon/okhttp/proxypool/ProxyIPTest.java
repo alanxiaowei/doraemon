@@ -13,7 +13,7 @@ import java.util.List;
 public class ProxyIPTest {
 	ProxySelector ps;
 
-	String fileName = "/git/doraemon/src/main/java/com/alanma/doraemon/utils/okhttp/proxypool/ip.txt";
+	String fileName = "/git/doraemon/src/test/java/com/mxw/doraemon/okhttp/proxypool/ip.txt";
 
 	List<IPObj> copyIps = new ArrayList<IPObj>();
 
@@ -99,7 +99,9 @@ public class ProxyIPTest {
 				String[] ipEle = new String[2];
 				ipEle = tempString.split(":");
 				String ip = ipEle[0];
-				String port = ipEle[1].split("#")[0];
+				//TODO
+				// String port = ipEle[1].split("#")[0];
+				String port = ipEle[1];
 				IPObj ipObj = new IPObj(ip, Integer.parseInt(port));
 				System.out.println(ipObj.toString());
 				ips.add(ipObj);
@@ -166,7 +168,7 @@ public class ProxyIPTest {
 		System.out.println("\n~~~finish connecting~~~\n");
 
 		try {
-			Thread.sleep(90_000);
+			Thread.sleep(15_000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -182,7 +184,7 @@ public class ProxyIPTest {
 			System.out.println("          - ip: "+ipObj.ip);
 			System.out.println("            port: "+ipObj.port);
 		});
-		
+		System.out.println("有效IP数："+copyIps.size());
 	}
 
 }

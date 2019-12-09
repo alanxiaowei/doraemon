@@ -25,8 +25,10 @@ public class UserTest {
 
 	@Test
 	public void testSelect() {
-		List<User> userList = userMapper.getByNameSQLXML("alan");
+		System.out.println("enter~~~");
+		List<User> userList = userMapper.getByNameSQLXML("Tom");
 		userList.forEach(System.out::println);
+		System.out.println("finish~~~");
 	}
 
 }

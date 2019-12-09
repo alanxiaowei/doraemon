@@ -12,7 +12,7 @@ public class PushConsumer {
 
 	/**
 	 * 当前例子是PushConsumer用法，使用方式给用户感觉是消息从RocketMQ服务器推到了应用客户端。<br>
-	 * 但是实际PushConsumer内部是使用长轮询Pull方式从MetaQ服务器拉消息，然后再回调用户Listener方法<br>
+	 * 但是实际P导出                                        ushConsumer内部是使用长轮询Pull方式从MetaQ服务器拉消息，然后再回调用户Listener方法<br>
 	 */
 	public static void main(String[] args) {
 		try {
@@ -21,8 +21,8 @@ public class PushConsumer {
 			 * 注意：ConsumerGroupName需要由应用来保证唯一
 			 */
 			DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ConsumerGroupNameMXWLocalHost");
-			consumer.setNamesrvAddr("192.168.2.172:9876");
-			// consumer.setNamesrvAddr("127.0.0.1:9876");
+			// consumer.setNamesrvAddr("192.168.2.172:9876");
+			consumer.setNamesrvAddr("127.0.0.1:9876;192.168.2.183:9876");
 			consumer.setInstanceName("ConsumberMXW");
 			consumer.setVipChannelEnabled(false);
 

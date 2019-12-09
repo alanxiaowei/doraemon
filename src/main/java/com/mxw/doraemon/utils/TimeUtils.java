@@ -416,6 +416,23 @@ public class TimeUtils {
 		return parseLocDateTimeToString(time2LocalDateTime(time));
 	}
 
+	/**
+	 * 获取当前时间戳
+	 * @return
+	 */
+	public static Long getDayStartTimeStamp(){
+		LocalDateTime startTime=TimeUtils.getDayStart(getCurrentLocalDateTime());
+		return localDateTime2time(startTime);
+	}
+
+	/**
+	 * 获取当前
+	 * @return
+	 */
+	public static Long getCurrentTimeStamp(){
+		return localDateTime2time(getCurrentLocalDateTime());
+	}
+
 	public static void main(String[] args) {
 		// LocalDateTime time = parseLocalDateTime("2018-02-28 08:00:00", "yyyy-MM-dd
 		// HH:mm:ss");
