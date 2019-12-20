@@ -22,7 +22,7 @@ public class PushConsumer {
 			 */
 			DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ConsumerGroupNameMXWLocalHost");
 			// consumer.setNamesrvAddr("192.168.2.172:9876");
-			consumer.setNamesrvAddr("127.0.0.1:9876;192.168.2.183:9876");
+			consumer.setNamesrvAddr("192.168.116.198:9876");
 			consumer.setInstanceName("ConsumberMXW");
 			consumer.setVipChannelEnabled(false);
 

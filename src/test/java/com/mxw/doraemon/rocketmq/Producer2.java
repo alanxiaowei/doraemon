@@ -7,7 +7,7 @@ import org.apache.rocketmq.common.message.Message;
 
 import java.util.concurrent.TimeUnit;
 
-public class Producer {
+public class Producer2 {
 	public static void main(String[] args) throws MQClientException, InterruptedException {
 		/**
 		 * 一个应用创建一个Producer，由应用来维护此对象，可以设置为全局对象或者单例<br>
