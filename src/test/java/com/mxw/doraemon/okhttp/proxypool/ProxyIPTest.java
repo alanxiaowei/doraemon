@@ -13,7 +13,7 @@ import java.util.List;
 public class ProxyIPTest {
 	ProxySelector ps;
 
-	String fileName = "/git/doraemon/src/test/java/com/mxw/doraemon/okhttp/proxypool/ip.txt";
+	String fileName = "/Users/alanma/git/doraemon/src/test/java/com/mxw/doraemon/okhttp/proxypool/ip.txt";
 
 	List<IPObj> copyIps = new ArrayList<IPObj>();
 
@@ -60,7 +60,7 @@ public class ProxyIPTest {
 			OkHttpClient client = new OkHttpClient.Builder()
 					.proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ip, port))).build();
 
-			String url = "https://api.binance.com/api/v3/ticker/price";
+			String url = "http://10.10.3.4:42436/largescreen/exchanges";
 			Request request = new Request.Builder().get().url(url)
 					.addHeader("content-type", "application/json;charset:utf-8").build();
 			Response response = null;
