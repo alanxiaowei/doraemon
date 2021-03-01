@@ -19,7 +19,7 @@ public class Scribe {
 	List<String> nodes = Arrays.asList("redis://127.0.0.1:6379");
 	RedissonClient redisClient = RedisClientBuilder.buildRedissionClient("single", nodes, null);
 
-	void publish() {
+	void subscribe() {
 		RTopic topic = redisClient.getTopic("test-scribe", new SerializationCodec());
 
 
