@@ -1,5 +1,7 @@
 package com.mxw.doraemon.utils.secret.zl;
 
+import org.apache.commons.net.util.Base64;
+
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
@@ -222,6 +224,13 @@ public class AES {
 
 	public static void main(String[] args) {
 		generateKey();
+		String aesKey = "F19669E17B50B28330AFCD35CBBB3ACC";
+		byte[] message=encrypt("god bless you", aesKey);
+		String msgBase64 = Base64.encodeBase64String(message);
+		System.out.println("=======:" + msgBase64);
+		byte[] msgPlaintext=decrypt(Base64.decodeBase64(msgBase64), aesKey);
+		String msgBasePT = new String(msgPlaintext);
+		System.out.println("~~~~~~~:" + msgBasePT);
 	}
 
 }

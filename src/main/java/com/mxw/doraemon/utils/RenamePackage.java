@@ -9,11 +9,15 @@ import java.util.stream.Collectors;
 
 public class RenamePackage {
 
-    public static final String filePath = "/Users/alanma/git/ksc/crypto-ex/ksc-crypto-ex-server-spotmatch";
+    public static final String filePath = "/Users/alanma/git/ksc/yjzl/kdss/kdss-core/microservice/business-c";
     //需要修改的文件类型
     public static final String[] fileType = {".java"};
     //指定修改文本替换 example
-    private static String[][] replace ={ {"liaoxuefeng", "ksc"}, {"com.itranswarp.crypto", "com.ksc.crypto"} };
+    private static String[][] replace ={ {"business-c", "kdss-core"}, {"@program: digitalbank", "@program: cvb"} };
+
+    public static final String origDir = "busc";
+
+    public static final String desDir = "kdss";
 
     public static void main(String[] args) {
         File filesBoot = new File(filePath);
@@ -26,9 +30,9 @@ public class RenamePackage {
            return;
         }
 
-        if("itranswarp".equals(fileDir.getName()) &&
+        if(origDir.equals(fileDir.getName()) &&
                 fileDir.getParent().indexOf("main/java/com") > 0){
-            fileDir.renameTo(new File(fileDir.getParent().concat(File.separator).concat("ksc")));
+            fileDir.renameTo(new File(fileDir.getParent().concat(File.separator).concat(desDir)));
         } else {
             File[] files = fileDir.listFiles(new FileFilter() {
                 @Override

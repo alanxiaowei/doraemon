@@ -14,7 +14,7 @@ import java.util.List;
  * @author: AlanMa
  * @create: 2020-03-13 18:04
  */
-public class Scribe {
+public class Subscribe {
 
 	List<String> nodes = Arrays.asList("redis://127.0.0.1:6379");
 	RedissonClient redisClient = RedisClientBuilder.buildRedissionClient("single", nodes, null);
@@ -30,8 +30,8 @@ public class Scribe {
 	}
 
 	public static void main(String[] args) {
-		Scribe scribe = new Scribe();
-		scribe.publish();
+		Subscribe subscribe = new Subscribe();
+		subscribe.subscribe();
 	}
 
 }
