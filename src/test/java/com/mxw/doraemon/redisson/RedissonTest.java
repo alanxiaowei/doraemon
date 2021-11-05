@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class RedissonTest {
-	// List<String> nodes = Arrays.asList("redis://127.0.0.1:6379");
+	List<String> nodes = Arrays.asList("redis://127.0.0.1:6379");
+	RedissonClient redisClient = RedisClientBuilder.buildRedissionClient("single", nodes, null);
 
-	List<String> nodes = Arrays.asList("redis://192.168.2.139:7001", "redis://192.168.2.139:7003", "redis://192.168.2.139:7005", "redis://192.168.2.195:7002", "redis://192.168.2.195:7004", "redis://192.168.2.195:7006");
-	// RedissonClient redisClient = RedisClientBuilder.buildRedissionClient("single", nodes, null);
-	RedissonClient redisClient = RedisClientBuilder.buildRedissionClient("cluster", nodes, null);
+	// List<String> nodes = Arrays.asList("redis://192.168.2.139:7001", "redis://192.168.2.139:7003", "redis://192.168.2.139:7005", "redis://192.168.2.195:7002", "redis://192.168.2.195:7004", "redis://192.168.2.195:7006");
+	// RedissonClient redisClient = RedisClientBuilder.buildRedissionClient("cluster", nodes, null);
 
 	void testZSET() {
 		RScoredSortedSet<Long> set = redisClient.getScoredSortedSet("user:volume:20180529");
@@ -83,7 +83,7 @@ public class RedissonTest {
 		big.put("aaa", new BigDecimal(10.88));
 		RMap<String, BigDecimal> big2 = redisClient.getMap("test:bigdecimal");
 		BigDecimal amt = big2.get("aaa");
-		System.out.println("~~~~~~~~~~:"+amt);
+		System.out.println("~~~~~~~~~~:" + amt);
 	}
 
 	void testExpire() {
@@ -164,7 +164,7 @@ public class RedissonTest {
 	private void testSortedSet() {
 		RScoredSortedSet<String> set = redisClient.getScoredSortedSet("last_bar_secXXX_YYY");
 
-		set.addAsync(1,"testbyalanma222" );
+		set.addAsync(1, "testbyalanma222");
 
 		// if(set.size()==0){
 		// 	System.out.println("skip");
@@ -173,7 +173,6 @@ public class RedissonTest {
 		//
 		// }
 	}
-
 
 
 	public static void main(String[] args) {
@@ -189,9 +188,13 @@ public class RedissonTest {
 		// test.testReentrantLock();
 		// test.updateUsr();
 		// test.testZsetAdd();
-		test.testSortedSet();
-	}
+		//
+		// RMap<String, String> rMap = test.redisClient.getMap("test:key");
+		RBucket<String> stringRTopic = test.redisClient.getBucket("test:key");
+		System.out.println(stringRTopic.get());
 
+
+	}
 
 
 }

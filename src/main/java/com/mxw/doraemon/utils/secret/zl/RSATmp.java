@@ -6,9 +6,9 @@ public class RSATmp {
 	static String privateKey = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJVIBSb5ZEJFA3lIem4waYhgPh4E2qiaGPXyzb1LVuDYiaW8DTm8qmDgmtIFKV3/TR/ZJZ7VF+iwjnMJtJJE/6hNxwnhn6lQUJ2eD3vOoqup2Mj//FEjkLuO33dtPQgzzJn7DZwJjEt6bWnJKyQH2glVPdRYUMetUyo3xMNh1qjlAgMBAAECgYBsMkLpuKAeF/8ojIuQCa6zlW3wO/xvbyDgQhc0N8LEPK2nXeEIE+I5TRFpXyxYYI35o11M/Y3SrQTSBBrIWRIiQW3yJBEOg0BBzIfH/mGjpeeE8FdjVFVpVyjW9Y4YypMpM911zclbWAFwzim9oaOH6ghVXLN7aVpYrPuh5eQXEQJBANcuQzGWY2D1oZDMXt7j9+ncTHdW7V05UHc85Kr+F1tpK1ELIVXI5fXkUj/985e9MCnQQWx180VtpGD2/fZoE2MCQQCxmYLrmuIDMf9TCVtKtd/Ah5sVAfuQvpthAaHWHdY3t7mPvOGlLFAPbcYSGTpLEej8Fea2FbmraAuAa24aGtkXAkEAjJ2rxVzchoEd2qzjFk7tNEMFKTuCE9ifb7w4RlGTW+YHK4fVeeS1+hEBetXueGtmbPyttD4EAovazo65eWubtwJBAIEeiZd/eHg4PlgBgnTTu8Q/Etn4Igx+93pUdHO2J4tEsM021pp+mApPleSMoNv5Pnkf9ydErkNXFp2b/WVPRasCQA7Vm3xvIJx5lA5pd+gmcaa9IhNM0vgMVfAdqv92+NUKP8Db+InqvOgS3l7kz3Bjj3oVV5KBLA07O7UQm4kO1Co=";
 
 	public static void main(String[] args) throws Exception {
-		// test();
+		test();
 		// testSign();
-		data();
+		// data();
 		// data();
 	}
 
@@ -30,7 +30,7 @@ public class RSATmp {
 
 	static void test() throws Exception {
 		System.out.println("公钥加密——私钥解密");
-		String source = "";
+		String source = "123456";
 		System.out.println("\r加密前文字：" + source);
 
 		byte[] data = source.getBytes();
@@ -74,5 +74,6 @@ public class RSATmp {
 		boolean status = RSAUtilsZL.verify(data, publicKey, sign);
 		System.out.println("验证结果:" + status);
 	}
+
 
 }
