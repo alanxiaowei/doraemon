@@ -21,3 +21,6 @@ hs_err_pid*
 /Known Hosts/
 /coverage-report/
 /src/main/filters/dev-filter.properties
+
+.idea/
+*.iml
