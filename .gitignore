@@ -22,5 +22,6 @@ hs_err_pid*
 /coverage-report/
 /src/main/filters/dev-filter.properties
 
+
 .idea/
 *.iml
